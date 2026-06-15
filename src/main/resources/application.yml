@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: text-filter
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    streams:
+      application-id: text-filter-app
+      properties:
+        state.dir: ${KAFKA_STATE_DIR:/var/kafka-streams/state}
+        cache.max.bytes.buffering: 0
+        commit.interval.ms: 1000
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+kafka:
+  topics:
+    messages: messages
+    filtered-messages: filtered_messages
+    blocked-users: blocked_users
+    banned-words: banned_words
+
+logging:
+  level:
+    root: INFO
+    org.example.processor: DEBUG
+    org.apache.kafka.streams: INFO

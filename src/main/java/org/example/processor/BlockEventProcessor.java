@@ -26,6 +26,7 @@ public class BlockEventProcessor implements Processor<String, String, Void, Void
         this.blockStore = context.getStateStore(BLOCK_STORE_NAME);
     }
 
+    // процесс, в котором добавляем блокировку пользователем
     @Override
     public void process(Record<String, String> kafkaRecord) {
         try {

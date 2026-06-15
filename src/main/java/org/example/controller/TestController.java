@@ -26,6 +26,7 @@ public class TestController {
     @Value("${kafka.topics.banned-words:banned_words}")
     private String bannedWordsTopic;
 
+    // основная логика с отправкой сообщения через постман (в моем случае)
     @PostMapping("/send-text")
     public void sendMessage(@RequestBody ChatMessage message) throws Exception {
         String json = objectMapper.writeValueAsString(message);
@@ -34,6 +35,7 @@ public class TestController {
                 message.senderId(), message.text(), message.recipientId());
     }
 
+    // блокировка пользователя
     @PostMapping("/block-user")
     public void blockUser(@RequestBody UserBlockEvent event) throws Exception {
         String key = event.blockerId() + ":" + event.blockedId();
@@ -43,6 +45,7 @@ public class TestController {
                 event.blockerId(), event.blockedId());
     }
 
+    // добавление заблокированных слов
     @PostMapping("/add-banned-word")
     public void addBannedWord(@RequestBody BannedWordEvent event) throws Exception {
         String key = event.word().toLowerCase();

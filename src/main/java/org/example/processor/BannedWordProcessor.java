@@ -26,6 +26,7 @@ public class BannedWordProcessor implements Processor<String, String, Void, Void
         this.bannedWordsStore = context.getStateStore(BANNED_WORDS_STORE_NAME);
     }
 
+    // процесс, в котором добавляем заблокированные слова
     @Override
     public void process(Record<String, String> kafkaRecord) {
         try {

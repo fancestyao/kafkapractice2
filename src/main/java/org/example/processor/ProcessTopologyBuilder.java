@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ProcessTopologyBuilder {
 
+    // названия хранилищ
     public static final String BANNED_WORDS_STORE_NAME = "banned-words-store";
     public static final String BLOCK_STORE_NAME = "block-store";
 
@@ -31,6 +32,8 @@ public class ProcessTopologyBuilder {
     @Value("${kafka.topics.banned-words:banned_words}")
     private String bannedWordsTopic;
 
+    // строю топологию с помощью streambuilder'а, добавляя правила десериализации через Serdes,
+    // а также распредляя процессоры по логике
     @Autowired
     public void buildTopology(StreamsBuilder builder) {
         StoreBuilder<KeyValueStore<String, String>> blockStoreBuilder =

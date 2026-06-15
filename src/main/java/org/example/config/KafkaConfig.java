@@ -29,6 +29,7 @@ public class KafkaConfig {
     @Value("${kafka.topics.filtered-messages:filtered_messages}")
     private String filteredMessagesTopic;
 
+    // пропсы с основными настройками
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
     public KafkaStreamsConfiguration kafkaStreamsConfig() {
         Map<String, Object> props = new HashMap<>();
@@ -41,6 +42,7 @@ public class KafkaConfig {
         return new KafkaStreamsConfiguration(props);
     }
 
+    // ниже дефолтные топики с переданными названиями
     @Bean
     public NewTopic messagesTopic() {
         return TopicBuilder.name(messagesTopic)
